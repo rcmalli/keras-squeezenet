@@ -15,6 +15,11 @@ Pretrained models are converted from original caffe network.
 - Tensorflow backend with 'tf' dimension ordering
 
 ~~~python
+from scipy import misc
+import copy
+import numpy as np
+from squeezenet import get_squeezenet
+
 model = get_squeezenet(1000, dim_ordering='tf')
 model.compile(loss="categorical_crossentropy", optimizer="adam")
 model.load_weights('../model/sqn_tf.h5', by_name=True)
@@ -38,6 +43,11 @@ res = model.predict(im)
 - Theano backend with 'th' dimension ordering
 
 ~~~python
+from scipy import misc
+import copy
+import numpy as np
+from squeezenet import get_squeezenet
+
 model = get_squeezenet(1000, dim_ordering='th')
 model.compile(loss="categorical_crossentropy", optimizer="adam")
 model.load_weights('../model/sqn_th.h5', by_name=True)
