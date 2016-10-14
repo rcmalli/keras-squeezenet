@@ -1,4 +1,4 @@
-from keras.utils.layer_utils import convert_all_kernels_in_model
+
 from scipy import misc
 import copy
 import numpy as np
@@ -15,6 +15,7 @@ if __name__ == '__main__':
 
     start = time.time()
     im = misc.imread('../images/cat.jpeg')
+
     im = misc.imresize(im, (227, 227)).astype(np.float32)
     aux = copy.copy(im)
     im[:, :, 0] = aux[:, :, 2]

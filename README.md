@@ -22,7 +22,7 @@ from squeezenet import get_squeezenet
 
 model = get_squeezenet(1000, dim_ordering='tf')
 model.compile(loss="categorical_crossentropy", optimizer="adam")
-model.load_weights('../model/sqn_tf.h5', by_name=True)
+model.load_weights('../model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5', by_name=True)
 
 # read and prepare image input
 im = misc.imread('../images/cat.jpeg')
@@ -50,7 +50,7 @@ from squeezenet import get_squeezenet
 
 model = get_squeezenet(1000, dim_ordering='th')
 model.compile(loss="categorical_crossentropy", optimizer="adam")
-model.load_weights('../model/sqn_th.h5', by_name=True)
+model.load_weights('../model/squeezenet_weights_th_dim_ordering_th_kernels.h5', by_name=True)
 
 # read and prepare image input
 im = misc.imread('../images/cat.jpeg')
