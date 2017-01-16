@@ -1,3 +1,4 @@
+from __future__ import print_function
 from keras.layers import Input, merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.core import Dropout, Activation
@@ -76,16 +77,16 @@ if __name__ == '__main__':
     model = get_squeezenet(1000)
 
     duration = time.time() - start
-    print "{} s to make model".format(duration)
+    print("{} s to make model".format(duration))
 
     start = time.time()
     model.output
     duration = time.time() - start
-    print "{} s to get output".format(duration)
+    print("{} s to get output".format(duration))
 
     start = time.time()
     model.compile(loss="categorical_crossentropy", optimizer="adam")
     duration = time.time() - start
-    print "{} s to get compile".format(duration)
+    print("{} s to get compile".format(duration))
 
     plot(model, to_file='images/SqueezeNet.png', show_shapes=True)
