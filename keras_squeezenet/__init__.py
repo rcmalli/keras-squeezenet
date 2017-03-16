@@ -1,0 +1,1 @@
+from squeezenet import SqueezeNet
