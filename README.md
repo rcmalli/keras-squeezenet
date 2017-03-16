@@ -2,7 +2,7 @@
 SqueezeNet v1.1 Implementation using Keras Functional Framework 2.0
 
 This [network model](https://github.com/rcmalli/keras-squeezenet/blob/master/images/SqueezeNet.png) has AlexNet accuracy with small footprint (5.1 MB)
-Pretrained models are converted from original caffe network.
+Pretrained models are converted from original Caffe network.
 
 ~~~bash
 
@@ -14,10 +14,12 @@ pip install keras_squeezenet
 
 - Project is now up-to-date with the new Keras version (2.0).
 
+- Old Implementation is still available at 'keras1' branch.
+
 ### Library Versions
 
-- Keras v2.0
-- Tensorflow 1.0s
+- Keras v2.0+
+- Tensorflow 1.0+
 
 ### Example Usage
 
@@ -30,7 +32,6 @@ from keras.preprocessing import image
 import time
 
 model = SqueezeNet()
-model.load_weights('../model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5', by_name=True)
 
 img = image.load_img('../images/cat.jpeg', target_size=(227, 227))
 x = image.img_to_array(img)

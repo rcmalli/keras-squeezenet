@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='keras_squeezenet',
-      version='0.1',
+      version='0.2',
       description='Squeezenet implementation with Keras framework',
       url='https://github.com/rcmalli/keras-squeezenet',
       author='Refik Can MALLI',

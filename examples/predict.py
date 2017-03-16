@@ -8,8 +8,7 @@ import time
 if __name__ == '__main__':
 
     model = SqueezeNet()
-    model.load_weights('../model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5', by_name=True)
-
+    # model.load_weights('../model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5', by_name=True)
 
     start = time.time()
 
