@@ -52,6 +52,7 @@ print('Predicted:', decode_predictions(preds))
 
 3) [SqueezeNet Paper](http://arxiv.org/abs/1602.07360)
 
-###Licence 
+
+### Licence 
 
 MIT License 
