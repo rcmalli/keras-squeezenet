@@ -1,72 +1,46 @@
 # keras-squeezenet
-SqueezeNet v1.1 Implementation using Keras Functional Framework 1.1
+SqueezeNet v1.1 Implementation using Keras Functional Framework 2.0
 
 This [network model](https://github.com/rcmalli/keras-squeezenet/blob/master/images/SqueezeNet.png) has AlexNet accuracy with small footprint (5.1 MB)
-Pretrained models are converted from original caffe network.
+Pretrained models are converted from original Caffe network.
+
+~~~bash
+
+pip install keras_squeezenet
+
+~~~
+
+### News
+
+- Project is now up-to-date with the new Keras version (2.0).
+
+- Old Implementation is still available at 'keras1' branch.
 
 ### Library Versions
 
-- Keras v1.1
-- Tensorflow v10
-- Theano v0.8.2
+- Keras v2.0+
+- Tensorflow 1.0+
 
 ### Example Usage
 
-- Tensorflow backend with 'tf' dimension ordering
-
 ~~~python
-from scipy import misc
-import copy
+
 import numpy as np
-from squeezenet import get_squeezenet
+from keras_squeezenet import SqueezeNet
+from keras.applications.imagenet_utils import preprocess_input, decode_predictions
+from keras.preprocessing import image
+import time
 
-model = get_squeezenet(1000, dim_ordering='tf')
-model.compile(loss="categorical_crossentropy", optimizer="adam")
-model.load_weights('../model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5', by_name=True)
+model = SqueezeNet()
 
-# read and prepare image input
-im = misc.imread('../images/cat.jpeg')
-im = misc.imresize(im, (227, 227)).astype(np.float32)
-aux = copy.copy(im)
-im[:, :, 0] = aux[:, :, 2]
-im[:, :, 2] = aux[:, :, 0]
+img = image.load_img('../images/cat.jpeg', target_size=(227, 227))
+x = image.img_to_array(img)
+x = np.expand_dims(x, axis=0)
+x = preprocess_input(x)
 
-# Remove image mean
-im[:, :, 0] -= 104.006
-im[:, :, 1] -= 116.669
-im[:, :, 2] -= 122.679
-im = np.expand_dims(im, axis=0)
+preds = model.predict(x)
+print('Predicted:', decode_predictions(preds))
 
-res = model.predict(im)
-~~~
-
-- Theano backend with 'th' dimension ordering
-
-~~~python
-from scipy import misc
-import copy
-import numpy as np
-from squeezenet import get_squeezenet
-
-model = get_squeezenet(1000, dim_ordering='th')
-model.compile(loss="categorical_crossentropy", optimizer="adam")
-model.load_weights('../model/squeezenet_weights_th_dim_ordering_th_kernels.h5', by_name=True)
-
-# read and prepare image input
-im = misc.imread('../images/cat.jpeg')
-im = misc.imresize(im, (227, 227)).astype(np.float32)
-aux = copy.copy(im)
-im[:, :, 0] = aux[:, :, 2]
-im[:, :, 2] = aux[:, :, 0]
-
-# Remove image mean
-im[:, :, 0] -= 104.006
-im[:, :, 1] -= 116.669
-im[:, :, 2] -= 122.679
-im = np.transpose(im, (2, 0, 1))
-im = np.expand_dims(im, axis=0)
-
-res = model.predict(im)
 ~~~
 
 
@@ -78,6 +52,7 @@ res = model.predict(im)
 
 3) [SqueezeNet Paper](http://arxiv.org/abs/1602.07360)
 
-###Licence 
+
+### Licence 
 
 MIT License 
