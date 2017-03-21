@@ -9,4 +9,4 @@ setup(name='keras_squeezenet',
       license='MIT',
       packages=['keras_squeezenet'],
       zip_safe=False,
-      install_requires=['numpy', 'pillow', 'tensorflow', 'keras'])
+      install_requires=['keras','tensorflow','pillow','numpy'])
