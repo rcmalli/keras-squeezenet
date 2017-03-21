@@ -1,1 +1,1 @@
-from squeezenet import SqueezeNet
+from keras_squeezenet.squeezenet import SqueezeNet
