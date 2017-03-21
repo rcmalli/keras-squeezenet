@@ -30,6 +30,7 @@ install:
     elif [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then
       conda install Pillow;
     fi
+  - pip install tensorflow
   - pip install -e
 # command to run tests
 script: python test.py
