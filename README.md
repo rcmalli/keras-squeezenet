@@ -54,3 +54,5 @@ print('Predicted:', decode_predictions(preds))
 ### Licence 
 
 MIT License 
+
+Note: If you find this project useful, please include reference link in your work.
