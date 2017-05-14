@@ -1,11 +1,12 @@
 from keras.applications.imagenet_utils import _obtain_input_shape
 from keras import backend as K
-from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout, GlobalAveragePooling2D, \
-    warnings
+from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout, warnings
+from keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
 from keras.models import Model
 from keras.engine.topology import get_source_inputs
 from keras.utils import get_file
 from keras.utils import layer_utils
+
 
 sq1x1 = "squeeze1x1"
 exp1x1 = "expand1x1"
@@ -13,6 +14,7 @@ exp3x3 = "expand3x3"
 relu = "relu_"
 
 WEIGHTS_PATH = "https://github.com/rcmalli/keras-squeezenet/releases/download/v1.0/squeezenet_weights_tf_dim_ordering_tf_kernels.h5"
+WEIGHTS_PATH_NO_TOP = "https://github.com/jeremykawahara/keras-squeezenet/raw/master/weights/squeezenet_weights_tf_dim_ordering_tf_kernels_notop.h5"
 
 # Modular function for Fire Node
 
@@ -39,9 +41,12 @@ def fire_module(x, fire_id, squeeze=16, expand=64):
 
 # Original SqueezeNet from paper.
 
-def SqueezeNet(input_tensor=None, input_shape=None,
-               weights='imagenet',
+def SqueezeNet(include_top=True, weights='imagenet',
+               input_tensor=None, input_shape=None,
+               pooling=None,
                classes=1000):
+    """Instantiates the SqueezeNet architecture.
+    """
     
 
         
@@ -86,12 +91,26 @@ def SqueezeNet(input_tensor=None, input_shape=None,
     x = fire_module(x, fire_id=7, squeeze=48, expand=192)
     x = fire_module(x, fire_id=8, squeeze=64, expand=256)
     x = fire_module(x, fire_id=9, squeeze=64, expand=256)
-    x = Dropout(0.5, name='drop9')(x)
+    
+    if include_top:
+        # It's not obvious where to cut the network... 
+        # Could do the 8th or 9th layer... some work recommends cutting earlier layers.
+    
+        x = Dropout(0.5, name='drop9')(x)
 
-    x = Convolution2D(classes, (1, 1), padding='valid', name='conv10')(x)
-    x = Activation('relu', name='relu_conv10')(x)
-    x = GlobalAveragePooling2D()(x)
-    out = Activation('softmax', name='loss')(x)
+        x = Convolution2D(classes, (1, 1), padding='valid', name='conv10')(x)
+        x = Activation('relu', name='relu_conv10')(x)
+        x = GlobalAveragePooling2D()(x)
+        x = Activation('softmax', name='loss')(x)
+    else:
+        if pooling == 'avg':
+            x = GlobalAveragePooling2D()(x)
+        elif pooling=='max':
+            x = GlobalMaxPooling2D()(x)
+        elif pooling==None:
+            pass
+        else:
+            raise ValueError("Unknown argument for 'pooling'=" + pooling)
 
     # Ensure that the model takes into account
     # any potential predecessors of `input_tensor`.
@@ -100,14 +119,19 @@ def SqueezeNet(input_tensor=None, input_shape=None,
     else:
         inputs = img_input
 
-    model = Model(inputs, out, name='squeezenet')
+    model = Model(inputs, x, name='squeezenet')
 
     # load weights
     if weights == 'imagenet':
-
-        weights_path = get_file('squeezenet_weights_tf_dim_ordering_tf_kernels.h5',
+        if include_top:
+            weights_path = get_file('squeezenet_weights_tf_dim_ordering_tf_kernels.h5',
                                     WEIGHTS_PATH,
                                     cache_subdir='models')
+        else:
+            weights_path = get_file('squeezenet_weights_tf_dim_ordering_tf_kernels_notop.h5',
+                                    WEIGHTS_PATH_NO_TOP,
+                                    cache_subdir='models')
+            
         model.load_weights(weights_path)
         if K.backend() == 'theano':
             layer_utils.convert_all_kernels_in_model(model)
