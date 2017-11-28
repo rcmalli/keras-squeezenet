@@ -1,7 +1,7 @@
 from setuptools import setup
-
+exec(open('keras_squeezenet/version.py').read())
 setup(name='keras_squeezenet',
-      version='0.3',
+      version=__version__,
       description='Squeezenet implementation with Keras framework',
       url='https://github.com/rcmalli/keras-squeezenet',
       author='Refik Can MALLI',
@@ -9,4 +9,10 @@ setup(name='keras_squeezenet',
       license='MIT',
       packages=['keras_squeezenet'],
       zip_safe=False,
-      install_requires=['keras','tensorflow','pillow','numpy'])
+      install_requires=['numpy>=1.9.1',
+                        'scipy>=0.14',
+                        'h5py',
+                        'tensorflow',
+                        'keras',
+                        'six>=1.9.0',
+                        'pyyaml'])
