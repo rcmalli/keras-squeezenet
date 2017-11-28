@@ -14,12 +14,12 @@ pip install keras_squeezenet
 
 - Project is now up-to-date with the new Keras version (2.0).
 
-- Old Implementation is still available at 'keras1' branch.
+- Old Implementation is still available at 'keras1' branch but not updated.
 
 ### Library Versions
 
-- Keras v2.0+
-- Tensorflow 1.0+
+- Keras v2.1.1
+- Tensorflow v1.4
 
 ### Example Usage
 
