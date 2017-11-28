@@ -1,6 +1,3 @@
-# Please follow the general troubleshooting steps first:
-
-
 ### Tensorflow Version
 
 Please replace this line with Tensorflow version you are using.
