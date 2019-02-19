@@ -4,10 +4,13 @@ SqueezeNet v1.1 Implementation using Keras Functional Framework 2.0
 This [network model](https://github.com/rcmalli/keras-squeezenet/blob/master/images/SqueezeNet.png) has AlexNet accuracy with small footprint (5.1 MB)
 Pretrained models are converted from original Caffe network.
 
+
+
 ~~~bash
-
-pip install keras_squeezenet
-
+# Most Recent One
+pip install git+https://github.com/rcmalli/keras-squeezenet.git
+# Release Version
+pip install keras_squeezenet # 
 ~~~
 
 ### News
