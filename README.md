@@ -10,7 +10,7 @@ Pretrained models are converted from original Caffe network.
 # Most Recent One
 pip install git+https://github.com/rcmalli/keras-squeezenet.git
 # Release Version
-pip install keras_squeezenet # 
+pip install keras_squeezenet
 ~~~
 
 ### News
