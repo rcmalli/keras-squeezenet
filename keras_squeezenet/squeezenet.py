@@ -4,7 +4,7 @@ from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concate
 from keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
 from keras.models import Model
 from keras.utils.layer_utils import get_source_inputs
-from keras.utils import get_file
+from tensorflow.keras.utils import get_file
 from keras.utils import layer_utils
 
 
