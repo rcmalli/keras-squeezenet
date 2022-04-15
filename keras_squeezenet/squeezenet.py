@@ -1,6 +1,6 @@
 from keras_applications.imagenet_utils import _obtain_input_shape
 from keras import backend as K
-from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout, warnings
+from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout
 from keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
 from keras.models import Model
 from keras.engine.topology import get_source_inputs
